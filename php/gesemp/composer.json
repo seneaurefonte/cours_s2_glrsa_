@@ -1,0 +1,17 @@
+{
+    "name": "douvewane/gesemp",
+    "description": "Gestion des employes et des taches",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+           
+        }
+    },
+    "authors": [
+        {
+            "name": "douvewane",
+            "email": "douvewane85@gmail.com"
+        }
+    ],
+    "require": {}
+}
