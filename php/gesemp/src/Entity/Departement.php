@@ -4,6 +4,7 @@ class Departement{
   private int $id;
   private string $code;
   private string $nom;
+ 
 
 
   /**

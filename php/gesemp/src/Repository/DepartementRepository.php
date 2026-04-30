@@ -34,5 +34,16 @@ use App\Entity\Departement;
         
     }
 
+    public static function selectById(int $id):?Departement
+    {
+        $pdo = Database::getConnection();
+        $cursor = $pdo->prepare("select * from departements where id=:id");
+        $cursor->execute([':id' => $id]);
+        $departement=$cursor->fetchObject(Departement::class);
+        ///4-Fermer la connexion
+         Database::closeConnection();
+         return  $departement;
+    }
+
 
 }

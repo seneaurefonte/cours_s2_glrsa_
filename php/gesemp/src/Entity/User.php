@@ -1,12 +1,19 @@
 <?php 
 namespace App\Entity;
 
+use App\Repository\DepartementRepository;
+
 class User{
-    private $id;
-    private $nom;
-    private $prenom;
-    private $email;
-    private $telephone;
+    private int $id;
+    private  string $nom;
+    private string $prenom;
+    private string $email;
+    private string $telephone;
+   //Mapper avec la table user en BD a l'objet User
+    private int $departement_id;
+    //Relation ManyToOne
+    private ?Departement $departement=null;
+
 
     public function __construct()
     {
@@ -103,5 +110,49 @@ class User{
         $this->telephone = $telephone;
 
         return $this;
+    }
+
+    /**
+     * Get the value of departement
+     */
+    public function getDepartement(): Departement
+    {
+      if ($this->departement==null &&  isset($this->departement_id)) {
+         $this->departement=DepartementRepository::selectById($this->departement_id);
+      }
+      return $this->departement; 
+    }
+
+    /**
+     * Set the value of departement
+     */
+    public function setDepartement(Departement $departement): self
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of departement_id
+     */
+    public function getDepartementId(): int
+    {
+        return $this->departement_id;
+    }
+
+    /**
+     * Set the value of departement_id
+     */
+    public function setDepartementId(int $departement_id): self
+    {
+        $this->departement_id = $departement_id;
+
+        return $this;
+    }
+
+    public function __toString():string 
+    {
+       return "Nom et Prenom : ".$this->nom." ".$this->prenom."Nom et Prenom : ".$this->getDepartement()->getNom()."\n";
     }
 }
