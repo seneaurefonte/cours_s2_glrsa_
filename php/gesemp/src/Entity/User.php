@@ -118,7 +118,7 @@ class User{
     public function getDepartement(): Departement
     {
       if ($this->departement==null &&  isset($this->departement_id)) {
-         $this->departement=DepartementRepository::selectById($this->departement_id);
+         $this->departement=DepartementRepository::getInstance()->selectById($this->departement_id);
       }
       return $this->departement; 
     }

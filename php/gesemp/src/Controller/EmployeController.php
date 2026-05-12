@@ -1,11 +1,23 @@
 <?php 
 namespace App\Controller;
 
+use App\Config\AbstractController;
 use App\Entity\User;
 use App\Services\DepartementService;
 use App\Services\UserService;
+use Override;
 
-class EmployeController{
+/*
+ EmployeController est un Controller 
+ Controller est classe Mere de EmployeController
+*/
+class EmployeController extends AbstractController{
+
+        #[Override]
+        public function __construct()
+        {
+            return parent::__construct();
+      }
     public function  create():void{
         //Recuparer les donnees du formulaire
         if($_SERVER["REQUEST_METHOD"]=="POST"){
@@ -42,12 +54,6 @@ class EmployeController{
         ]);
     }
 
-    private function render(string $view,array $data=[]){
-        extract($data);
-        require_once dirname(__DIR__)."/Views/layout/header.partial.php"; 
-        require_once dirname(__DIR__)."/Views/$view.php"; 
-        require_once dirname(__DIR__)."/Views/layout/footer.partial.php"; 
-    }
 
     
 }

@@ -1,10 +1,22 @@
 <?php 
 namespace App\Controller;
 
+use App\Config\AbstractController;
 use App\Entity\Departement;
 use App\Services\DepartementService;
+use Override;
 
-class DepartementController{
+/*
+ DepartementController est un Controller 
+  Controller est classe Mere de DepartementController
+*/
+class DepartementController extends AbstractController{
+
+        #[Override]
+        public  function __construct()
+        {
+            return parent::__construct();
+        }
     public function  create():void{
         if($_SERVER["REQUEST_METHOD"]=="POST"){
         //Request ==>saisieDepartement()
@@ -69,12 +81,7 @@ class DepartementController{
            ]);
     }
 
-    private function render(string $view,array $data=[]){
-        extract($data);
-        require_once dirname(__DIR__)."/Views/layout/header.partial.php"; 
-        require_once dirname(__DIR__)."/Views/$view.php"; 
-        require_once dirname(__DIR__)."/Views/layout/footer.partial.php"; 
-    }
+   
 
 
     

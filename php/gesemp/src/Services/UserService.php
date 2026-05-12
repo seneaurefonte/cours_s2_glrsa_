@@ -6,15 +6,20 @@ use App\Repository\UserRepository;
 
 class UserService{
 
+private function  __construct()
+{
+
+}
  public static function addUser(User $user):bool
 {
-        return UserRepository::insert($user)!=0;
+      
+        return UserRepository::getInstance()->insert($user)!=0;
 }
 
- public static function getAllEmployes():array
-     {
-        return UserRepository::selectAll();
+public static function getAllEmployes():array
+{
+         return UserRepository::getInstance()->selectAll(); 
         
-    }
+}
   
 }
