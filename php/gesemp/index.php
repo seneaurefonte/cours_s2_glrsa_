@@ -20,7 +20,16 @@ switch ($uri) {
         case '/departement/create':
           $deptController->create();
        break;
-     
+
+       case '/employe/form':
+          $empController->form();
+         break;
+      case '/employe/create':
+          $empController->create();
+         break;
+       case '/employe/list':
+          $empController->list();
+         break;
    
     
       default:

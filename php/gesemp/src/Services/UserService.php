@@ -11,7 +11,7 @@ class UserService{
         return UserRepository::insert($user)!=0;
 }
 
- public static function getAllUsers():array
+ public static function getAllEmployes():array
      {
         return UserRepository::selectAll();
         

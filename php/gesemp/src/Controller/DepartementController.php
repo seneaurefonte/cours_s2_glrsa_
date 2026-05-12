@@ -21,19 +21,16 @@ class DepartementController{
 
                  if (empty($nom)) {
                     $errors['nom']="Le nom du departement est obligatoire";
-                  }elseif(strlen($code)<6){
+                  }elseif(strlen($nom)<6){
                      $errors['nom']="Le nom doit avoir au moins 6 caracteres";
                  }
-
-                 //Erreurs
                  if(count($errors)!=0){
-                    //Erreurs doivent etre stocker dans la session;
-                       /*$this->render("/departement/form", [
+                   
+                       $this->render("departement/form", [
                          "errors"=>$errors,
                          'old' =>["nom"=>$nom,"code"=>$code
                          ]
-                    ]);*/
-                     header("location:/departement/form");
+                    ]);
                      exit;
                    
                  }
@@ -48,7 +45,7 @@ class DepartementController{
            $departement->setNom($nom);
            DepartementService::addDepartement($departement);
            //Redirection
-           header("location:/departement/form");
+           header("location:/departement/list");
            exit;
         }else{
            header("location:/departement/list");

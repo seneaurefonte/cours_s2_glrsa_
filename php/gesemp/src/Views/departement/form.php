@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body p-4">
                         <form action="/departement/create" method="POST">
-                            
+                           
                             <div class="mb-3">
                                 <label for="code" class="form-label text-dark fw-medium">Code du département</label>
                                 <input type="text" name="code" id="code" class="form-control <?php isset($errors['code']) ? 'is-invalid' : '' ;?> " placeholder="Ex: IT">

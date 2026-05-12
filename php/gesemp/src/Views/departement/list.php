@@ -22,7 +22,9 @@
                             </tr>
                         </thead>
                         <tbody class="border-top-0">
-                        <?php foreach($departements as $departement):?>
+                        <?php 
+                        $departements=$departements??[];
+                        foreach($departements as $departement):?>
                             <tr>
                                 <td class="ps-4 fw-medium text-dark"><?php echo $departement->getId();?> </td>
                                 <td class="text-muted"><?php echo $departement->getCode();?></td>

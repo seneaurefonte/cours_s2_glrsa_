@@ -23,7 +23,7 @@
                         <a class="nav-link active" href="/departement/list">Départements</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="employes_index.html">Employés</a>
+                        <a class="nav-link" href="/employe/list">Employés</a>
                     </li>
                 </ul>
             </div>
