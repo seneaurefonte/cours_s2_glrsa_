@@ -10,20 +10,27 @@
                     </div>
                     <div class="card-body p-4">
                         <form action="/departement/create" method="POST">
-                           
+                           <?php 
+                             $errors=$errors??[];
+                             $old=$old??[];
+                             
+                           ?>
                             <div class="mb-3">
                                 <label for="code" class="form-label text-dark fw-medium">Code du département</label>
-                                <input type="text" name="code" id="code" class="form-control <?php isset($errors['code']) ? 'is-invalid' : '' ;?> " placeholder="Ex: IT">
+                                <input type="text" name="code" id="code" class="form-control <?php echo isset($errors['code'])? 'is-invalid':'' ;?> "
+                                   value="<?php echo isset($errors['code'])? '' : ($old['code']?? '') ?>"
+                                   placeholder="Ex: IT">
                                  <div  class="invalid-feedback">
-                                    <?php echo htmlspecialchars($errors['code']);?>
+                                    <?php echo htmlspecialchars($errors['code']??'');?>
                                  </div>
                             </div>
 
                             <div class="mb-4">
                                 <label for="nom" class="form-label text-dark fw-medium">Nom du département</label>
-                                <input type="text" name="nom" id="nom" class="form-control <?php isset($errors['nom']) ? 'is-invalid' : '' ;?> " placeholder="Ex: Informatique">
+                                <input type="text" name="nom" id="nom" class="form-control <?php echo  isset($errors['nom']) ? 'is-invalid' : '' ;?>" placeholder="Ex: Informatique"
+                                value="<?php echo isset($errors['nom'])? '' : ($old['nom']?? '') ?>">
                                 <div id="validationServer03Feedback" class="invalid-feedback">
-                                       <?php echo htmlspecialchars($errors['nom']);?>
+                                       <?php echo htmlspecialchars($errors['nom']??'');?>
                                  </div>
                             </div>
                             

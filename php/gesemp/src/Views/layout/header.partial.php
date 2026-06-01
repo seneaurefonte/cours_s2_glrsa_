@@ -18,12 +18,22 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/departement/list">Départements</a>
-                    </li>
+                <ul class="navbar-nav ">
+                    <?php if(isset($_SESSION['user']) && $_SESSION['user']->getTypeUser()->value=="ADMIN"):?>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/departement/list">Départements</a>
+                        </li>
+                    <?php endif?>
                     <li class="nav-item">
                         <a class="nav-link" href="/employe/list">Employés</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><?php echo isset($_SESSION['user']) ? $_SESSION['user'] : 'Utilisateur'; ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/security/logout">Deconnexion</a>
                     </li>
                 </ul>
             </div>

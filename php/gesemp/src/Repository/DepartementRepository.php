@@ -5,7 +5,7 @@ use App\Config\AbstractRepository;
 use App\Entity\Departement;
 
  class DepartementRepository extends AbstractRepository{
-  private static ?DepartementRepository $instance=null;
+   private static ?DepartementRepository $instance=null;
   public static function getInstance():DepartementRepository
   {
     if(self::$instance==null)
@@ -16,42 +16,52 @@ use App\Entity\Departement;
   }
   private function __construct()
    {
-      return parent::__construct();
+       parent::__construct();
+       $this->tableName="departements";
+       $this->className="App\\Entity\\Departement";
+       //Departement::class. ==>"App\\Entity\\Departement"
    }
 
    public  function insert(Departement $departement):int
     {
-                    $pdo= parent::getConnection();
-                     $cursor=$pdo->prepare("insert INTO departements (code,nom) values (:code,:nom);" );
+        try {
+                     $pdo= parent::getConnection();
+                     $cursor=$pdo->prepare("insert INTO {$this->tableName}  (code,nom) values (:code,:nom);" );
                      $cursor->execute([
                         ":code"=>$departement->getCode(),
                         ":nom"=>$departement->getNom()
                       ]);
                     parent::closeConnection();
                      return $cursor->rowCount();
+        } catch (\Throwable $th) {
+              return 0;
+        }
+                  
     }
 
-     public  function selectAll():array
-     {
-                    $pdo = parent::getConnection();
-                    $cursor = $pdo->query("select * from departements");
-                     $departements=$cursor->fetchAll(\PDO::FETCH_CLASS,Departement::class);
-                   ///4-Fermer la connexion
-                    parent::closeConnection();
-                  return  $departements;
-        
-    }
+    
 
     public  function selectById(int $id):?Departement
     {
         $pdo = parent::getConnection();
-        $cursor = $pdo->prepare("select * from departements where id=:id");
+        $cursor = $pdo->prepare("select * from {$this->tableName}  where id=:id");
         $cursor->execute([':id' => $id]);
-        $departement=$cursor->fetchObject(Departement::class);
+        $departement=$cursor->fetchObject($this->className);
         ///4-Fermer la connexion
          parent::closeConnection();
          return  $departement;
     }
 
+    public function selectByCode(string $code):Departement|null
+    {
+          $pdo = parent::getConnection();
+          $cursor = $pdo->prepare("select * from {$this->tableName}  where code=:code");
+          $cursor->execute([':code' => $code]);
+          $departement=$cursor->fetchObject($this->className);
+         ///4-Fermer la connexion
+           parent::closeConnection();
+          return  $departement==false?null:$departement;
+    }
+   
 
 }

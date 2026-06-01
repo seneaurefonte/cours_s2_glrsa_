@@ -5,9 +5,11 @@
                 <h1 class="h3 mb-1 text-dark">Employés</h1>
                 <p class="text-muted mb-0">Liste de tous les employés de l'entreprise.</p>
             </div>
-            <a href="/employe/form" class="btn btn-primary">
+         <?php if(isset($_SESSION['user']) && $_SESSION['user']->getTypeUser()->value=="ADMIN"):?>
+             <a href="/employe/form" class="btn btn-primary">
                 Ajouter un  employé
             </a>
+        <?php endif ?>
         </div>
 
         <div class="card shadow-sm border-0">
@@ -21,6 +23,7 @@
                                 <th>Prénom</th>
                                 <th>Email</th>
                                 <th>Téléphone</th>
+                                <th>Fonction</th>
                                 <th>Departement</th>
                             </tr>
                         </thead>
@@ -34,6 +37,7 @@
                                 <td><?php echo $employe->getPrenom(); ?></td>
                                 <td><?php echo $employe->getEmail(); ?></td>
                                 <td><?php echo $employe->getTelephone(); ?></td>
+                                <td><?php echo $employe->getTypeUser()->value; ?></td>
                                 <td><?php echo $employe->getDepartement()->getNom(); ?></td>
                             </tr>
                         <?php endforeach; ?>

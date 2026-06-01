@@ -21,5 +21,17 @@ public static function getAllEmployes():array
          return UserRepository::getInstance()->selectAll(); 
         
 }
+
+public static function getUserById(int $id):?User
+{
+    return UserRepository::getInstance()->selectById($id);
   
+}
+
+public static function getUserByEmail(string $email):?User
+{
+    return UserRepository::getInstance()->selectByEmail($email);
+}
+
+
 }

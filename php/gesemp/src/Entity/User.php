@@ -13,12 +13,17 @@ class User{
     private int $departement_id;
     //Relation ManyToOne
     private ?Departement $departement=null;
+    private ?TypeUser $typeUser=null;
+    private string $password;
+    private string $type_user;
+
+
 
 
     public function __construct()
     {
-   
     }
+    
 
    
 
@@ -151,8 +156,48 @@ class User{
         return $this;
     }
 
-    public function __toString():string 
+ 
+    /**
+     * Get the value of typeUser
+     */
+    public function getTypeUser(): TypeUser
     {
-       return "Nom et Prenom : ".$this->nom." ".$this->prenom."Nom et Prenom : ".$this->getDepartement()->getNom()."\n";
+      if($this->typeUser==null && isset($this->type_user)){
+        $this->typeUser=TypeUser::fromString($this->type_user);
+      }
+      return $this->typeUser;
+    }
+
+    /**
+     * Set the value of typeUser
+     */
+    public function setTypeUser(TypeUser $typeUser): self
+    {
+        $this->typeUser = $typeUser;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of password
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     */
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+         return $this->nom." ".$this->prenom." ".$this->getTypeUser()->value;
     }
 }

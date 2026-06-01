@@ -14,4 +14,13 @@ class DepartementService{
         return DepartementRepository::getInstance()->selectAll();
         
     }
+    public static function getDepartementById(int $id):?Departement
+    {
+        return DepartementRepository::getInstance()->selectById($id);
+    }
+
+     public static function getDepartementByCode(string $code):?Departement
+    {
+        return DepartementRepository::getInstance()->selectByCode($code);
+    }
 }

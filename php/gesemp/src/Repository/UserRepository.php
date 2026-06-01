@@ -18,11 +18,13 @@ class UserRepository extends AbstractRepository{
     private function __construct()
     {
         parent::__construct();
+        $this->tableName="users";
+         $this->className="App\\Entity\\User";
     }
     public  function insert(User $user):int
     {
       $pdo= parent::getConnection();
-        $cursor=$pdo->prepare("insert INTO users (nom,prenom,email,telephone,departement_id) values (:nom,:prenom,:email,:telephone,:departementId)" );
+        $cursor=$pdo->prepare("insert INTO {$this->tableName} (nom,prenom,email,telephone,departement_id) values (:nom,:prenom,:email,:telephone,:departementId)" );
         $cursor->execute([
             ':nom' => $user->getNom(),
             ':prenom' => $user->getPrenom(),
@@ -36,22 +38,14 @@ class UserRepository extends AbstractRepository{
          parent::closeConnection();
          return $lastInsertId;
     }
-    public  function selectAll():array
-    {
-        $pdo = parent::getConnection();
-        $cursor = $pdo->query("select * from users");
-        $users=$cursor->fetchAll(\PDO::FETCH_CLASS,User::class);
-        ///4-Fermer la connexion
-         parent::closeConnection();
-         return  $users;
-    }
+   
 
     public   function selectById(int $id):?User
     {
         $pdo = parent::getConnection();
-        $cursor = $pdo->prepare("select * from users where id=:id");
+        $cursor = $pdo->prepare("select * from {$this->tableName} where id=:id");
         $cursor->execute([':id' => $id]);
-        $user=$cursor->fetchObject(User::class);
+        $user=$cursor->fetchObject($this->className);
         ///4-Fermer la connexion
          parent::closeConnection();
          return  $user;
@@ -60,7 +54,7 @@ class UserRepository extends AbstractRepository{
     public  function update(User $user):bool
     {
         $pdo = parent::getConnection();
-        $cursor = $pdo->prepare("update users set nom=:nom, prenom=:prenom, email=:email, telephone=:telephone where id=:id");
+        $cursor = $pdo->prepare("update {$this->tableName} set nom=:nom, prenom=:prenom, email=:email, telephone=:telephone where id=:id");
         $result = $cursor->execute([
             ':nom' => $user->getNom(),
             ':prenom' => $user->getPrenom(),
@@ -72,4 +66,15 @@ class UserRepository extends AbstractRepository{
          parent::closeConnection();
          return $result;
     }
+
+        public function selectByEmail(string $email):?User
+        {
+            $pdo = parent::getConnection();
+            $cursor = $pdo->prepare("select * from {$this->tableName} where email=:email");
+            $cursor->execute([':email' => $email]);
+            $user=$cursor->fetchObject($this->className);
+            //4-Fermer la connexion
+            parent::closeConnection();
+            return  $user==false?null:$user;
+        }
 }
