@@ -48,7 +48,11 @@ class EmployeController extends AbstractController{
     }
 
     public function list():void{
-        $employes=UserService::getAllEmployes();
+         $idChef=0;
+        if(isset($_SESSION['user'])  && $_SESSION['user']->getTypeUser()->value=="CHEF"){
+           $idChef=$_SESSION['user']->getId();
+        }
+        $employes=UserService::getAllEmployesByTypeUser($idChef);
         $this->render("employe/list",[
             "employes"=>$employes
         ]);

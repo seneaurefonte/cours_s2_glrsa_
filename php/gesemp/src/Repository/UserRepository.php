@@ -77,4 +77,15 @@ class UserRepository extends AbstractRepository{
             parent::closeConnection();
             return  $user==false?null:$user;
         }
+
+         public  function selectAllByType(int $idChef=0):array
+        {
+             $sql=$idChef==0?"select * from {$this->tableName}":"select * from {$this->tableName} where chef_id=$idChef";
+             $pdo = $this->getConnection();
+             $cursor = $pdo->query($sql);
+             $users=$cursor->fetchAll(\PDO::FETCH_CLASS,$this->className);
+             ///4-Fermer la connexion
+          $this->closeConnection();
+           return  $users;
+      }
 }

@@ -5,7 +5,8 @@ use App\Config\Validator;
 use App\Services\UserService;
 
 class SecurityController{
-    //Classe Session
+    //Classe Session static 
+    //Ouvrir Session, Fermer la session
       //Verifier Role isAdmin() isChef() , isConnect()
     public function login():void{
         if ($_SERVER['REQUEST_METHOD']=="GET") {

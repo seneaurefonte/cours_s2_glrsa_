@@ -3,6 +3,9 @@ namespace App\Config;
 use App\Controller\DepartementController;
 use App\Controller\EmployeController;
 use App\Controller\SecurityController;
+use App\Controller\TacheController;
+
+
 
 final class RouterIntermedaire{
    /*
@@ -38,10 +41,23 @@ final class RouterIntermedaire{
     {
         $uriParts=explode('/', $uri);
         $controllerName=$uriParts[1]??"departement";
-        $actonName=$uriParts[2]??"list";
+        $uriPart2=$uriParts[2]??"list";
+        $actonName=explode('?', $uriPart2)[0];
         switch ($controllerName) {
            case 'security':
              $secController=new SecurityController();
+             if (method_exists($secController,$actonName)) {
+                  $secController->$actonName();
+             }else{
+                http_response_code(404);
+                echo "Page Not Found";
+             }
+
+            
+             break;
+
+             case 'tache':
+             $secController=new TacheController();
              if (method_exists($secController,$actonName)) {
                   $secController->$actonName();
              }else{
@@ -72,8 +88,8 @@ final class RouterIntermedaire{
               
                 break;
             default:
-                http_response_code(404);
-                echo "Page Not Found";
+                $securityCtl=new SecurityController();
+                $securityCtl->login();
                 break;
                
         }

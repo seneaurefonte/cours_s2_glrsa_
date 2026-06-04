@@ -27,6 +27,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/employe/list">Employés</a>
                     </li>
+                      <?php if(isset($_SESSION['user']) && $_SESSION['user']->getTypeUser()->value=="CHEF"):?>
+                         <li class="nav-item active">
+                           <a class="nav-link" href="/tache/list">Mes Taches</a>
+                         </li>
+                    <?php endif?>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">

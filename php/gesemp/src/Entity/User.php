@@ -16,6 +16,7 @@ class User{
     private ?TypeUser $typeUser=null;
     private string $password;
     private string $type_user;
+    private ?int $chef_id;
 
 
 

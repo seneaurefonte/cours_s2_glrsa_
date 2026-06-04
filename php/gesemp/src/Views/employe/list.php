@@ -25,6 +25,9 @@
                                 <th>Téléphone</th>
                                 <th>Fonction</th>
                                 <th>Departement</th>
+                            <?php if(isset($_SESSION['user']) && $_SESSION['user']->getTypeUser()->value=="CHEF"):?>
+                                 <th>Actions</th>
+                             <?php endif ?>
                             </tr>
                         </thead>
                         <tbody class="border-top-0">
@@ -39,6 +42,23 @@
                                 <td><?php echo $employe->getTelephone(); ?></td>
                                 <td><?php echo $employe->getTypeUser()->value; ?></td>
                                 <td><?php echo $employe->getDepartement()->getNom(); ?></td>
+                            <?php if(isset($_SESSION['user']) && $_SESSION['user']->getTypeUser()->value=="CHEF"):?>
+                                <td class="gap-2"> 
+                                    <a
+                                    type="button"
+                                    class="btn btn-outline-info"
+                                     >
+                                    New Tache
+                                  </a>
+                                <a
+                                   href="/tache/list?id=<?php echo $employe->getId(); ?>"
+                                    type="button"
+                                    class="btn btn-outline-success"
+                                     >
+                                    Voir Taches
+                                 </a>
+                                 </td>
+                            <?php endif ?>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
