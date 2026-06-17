@@ -45,8 +45,10 @@
                             <?php if(isset($_SESSION['user']) && $_SESSION['user']->getTypeUser()->value=="CHEF"):?>
                                 <td class="gap-2"> 
                                     <a
+                                     href="/tache/form?id=<?php echo $employe->getId(); ?>"
                                     type="button"
                                     class="btn btn-outline-info"
+
                                      >
                                     New Tache
                                   </a>

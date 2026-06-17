@@ -40,7 +40,7 @@ class UserRepository extends AbstractRepository{
     }
    
 
-    public   function selectById(int $id):?User
+    public   function selectById(int $id):User|null
     {
         $pdo = parent::getConnection();
         $cursor = $pdo->prepare("select * from {$this->tableName} where id=:id");
@@ -48,7 +48,7 @@ class UserRepository extends AbstractRepository{
         $user=$cursor->fetchObject($this->className);
         ///4-Fermer la connexion
          parent::closeConnection();
-         return  $user;
+         return  $user==false?null:$user;
     }
 
     public  function update(User $user):bool
